@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{{ title }}</h2>
+        <a href="{{ url_for('bens.cadastrar_bem') }}" class="btn btn-success">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg>
+            Cadastrar Novo Bem
+        </a>
+    </div>
+
+    <!-- TODO: Adicionar formulário de filtros aqui -->
+    <form method="GET" action="{{ url_for('bens.listar_os_bens') }}" class="mb-3 p-3 border rounded bg-light">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="tipoBem">Tipo de Bem</label>
+                <select name="tipoBem" id="tipoBem" class="form-control form-control-sm">
+                    <option value="">Todos</option>
+                    {% for value, display in [('movel', 'Móvel'), ('veiculo', 'Veículo'), ('armamento', 'Armamento'), ('outro', 'Outro')] %} {# Adicionar mais tipos #}
+                        <option value="{{ value }}" {% if filtros_aplicados.tipoBem == value %}selected{% endif %}>{{ display }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="situacao">Situação do Bem</label>
+                <select name="situacao" id="situacao" class="form-control form-control-sm">
+                    <option value="">Todas</option>
+                     {% for value, display in [('novo', 'Novo'), ('bom', 'Bom'), ('regular', 'Regular'), ('ruim', 'Ruim'), ('inservivel', 'Inservível')] %}
+                        <option value="{{ value }}" {% if filtros_aplicados.situacao == value %}selected{% endif %}>{{ display }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2 align-self-end">
+                <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
+            </div>
+            <div class="form-group col-md-2 align-self-end">
+                <a href="{{ url_for('bens.listar_os_bens') }}" class="btn btn-secondary btn-sm btn-block">Limpar</a>
+            </div>
+        </div>
+    </form>
+
+
+    {% if bens %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nº Tombo</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Localização (Unidade)</th>
+                    <th>Situação</th>
+                    <th>Data Aquisição</th>
+                    <th>Valor Aquisição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bem in bens %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('bens.detalhar_bem_por_id', bem_id=bem.id if bem.id else bem.numeroTombo) }}">{{ bem.numeroTombo }}</a>
+                    </td>
+                    <td title="{{ bem.descricaoTecnica }}">{{ bem.descricaoTecnica[:80] }}{% if bem.descricaoTecnica|length > 80 %}...{% endif %}</td>
+                    <td>{{ bem.tipoBem | capitalize }}</td>
+                    <td>{{ bem.localizacao.unidade if bem.localizacao else 'N/A' }}</td>
+                    <td>{{ bem.situacao | capitalize }}</td>
+                    <td>{{ bem.dataAquisicao.strftime('%d/%m/%Y') if bem.dataAquisicao and hasattr(bem.dataAquisicao, 'strftime') else bem.dataAquisicao }}</td>
+                    <td class="text-right">R$ {{ "%.2f"|format(bem.valorAquisicao|float) if bem.valorAquisicao is not none else '0.00' }}</td>
+                    <td>
+                        <a href="{{ url_for('bens.detalhar_bem_por_id', bem_id=bem.id if bem.id else bem.numeroTombo) }}" class="btn btn-info btn-xs" title="Detalhar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+                        </a>
+                        <a href="{{ url_for('bens.editar_bem', bem_id=bem.id if bem.id else bem.numeroTombo) }}" class="btn btn-warning btn-xs" title="Editar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.179z"/></svg>
+                        </a>
+                        <!-- Botão de Baixa/Exclusão pode ser adicionado aqui -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if total_pages > 1 %}
+    <nav aria-label="Paginação de bens">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('bens.listar_os_bens', page=page-1, **filtros_aplicados) }}" tabindex="-1" aria-disabled="true">Anterior</a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('bens.listar_os_bens', page=p, **filtros_aplicados) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('bens.listar_os_bens', page=page+1, **filtros_aplicados) }}">Próxima</a>
+            </li>
+        </ul>
+    </nav>
+    <p class="text-center">Mostrando {{ bens|length }} de {{ total_bens }} bens. Página {{ page }} de {{ total_pages }}.</p>
+    {% else %}
+    <p class="text-center">Total de {{ total_bens }} bens encontrados.</p>
+    {% endif %}
+
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        Nenhum bem encontrado com os filtros aplicados. <a href="{{ url_for('bens.cadastrar_bem') }}">Cadastre o primeiro!</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

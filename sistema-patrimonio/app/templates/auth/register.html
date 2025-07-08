@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">{{ title }}</h2>
+                <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form.nome_completo.label(class="form-control-label") }}
+                            {% if form.nome_completo.errors %}
+                                {{ form.nome_completo(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.nome_completo.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.nome_completo(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.email.label(class="form-control-label") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form.password.label(class="form-control-label") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.password2.label(class="form-control-label") }}
+                            {% if form.password2.errors %}
+                                {{ form.password2(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password2.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password2(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form.matricula.label(class="form-control-label") }}
+                            {% if form.matricula.errors %}
+                                {{ form.matricula(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.matricula.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.matricula(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.cargo_funcao.label(class="form-control-label") }}
+                            {% if form.cargo_funcao.errors %}
+                                {{ form.cargo_funcao(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.cargo_funcao.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.cargo_funcao(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form.telefone.label(class="form-control-label") }}
+                            {% if form.telefone.errors %}
+                                {{ form.telefone(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.telefone.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.telefone(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.perfil.label(class="form-control-label") }}
+                            {% if form.perfil.errors %}
+                                {{ form.perfil(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.perfil.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.perfil(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        {{ form.submit(class="btn btn-primary btn-block") }}
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <p>Já tem uma conta? <a href="{{ url_for('auth.login') }}">Faça login aqui</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
