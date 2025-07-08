@@ -1,0 +1,11 @@
+Flask==2.2.2
+python-dotenv==0.21.0
+firebase-admin==6.0.1
+Flask-Login==0.6.2
+Flask-WTF==1.1.1
+WTForms[email]==3.0.1 # WTForms e validador de email
+qrcode[pil]==7.3.1 # Para gerar QR Codes com Pillow como dependência de imagem
+# pydantic (para validação de dados, pode ser útil depois)
+# gunicorn (para produção)
+# requests (para APIs externas)
+# Flask-Mail (para emails)

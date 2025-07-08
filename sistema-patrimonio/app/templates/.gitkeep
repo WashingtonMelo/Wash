@@ -1,0 +1,3 @@
+# Este arquivo existe apenas para garantir que o Git rastreie o diretório /templates,
+# mesmo que ele esteja vazio inicialmente.
+# Você pode remover este arquivo assim que adicionar arquivos de template HTML reais ao diretório.

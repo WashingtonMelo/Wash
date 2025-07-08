@@ -1,0 +1,197 @@
+<form method="POST" action="" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="card mb-3">
+        <div class="card-header">Informações Gerais</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    {{ form.descricao_tecnica.label(class="form-control-label") }}
+                    {{ form.descricao_tecnica(class="form-control " + ("is-invalid" if form.descricao_tecnica.errors else ""), rows="3") }}
+                    {% if form.descricao_tecnica.errors %}<div class="invalid-feedback">{% for error in form.descricao_tecnica.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.numero_tombo_anterior.label(class="form-control-label") }}
+                    {{ form.numero_tombo_anterior(class="form-control " + ("is-invalid" if form.numero_tombo_anterior.errors else "")) }}
+                    {% if form.numero_tombo_anterior.errors %}<div class="invalid-feedback">{% for error in form.numero_tombo_anterior.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form.tipo_bem.label(class="form-control-label") }}
+                    {{ form.tipo_bem(class="form-control " + ("is-invalid" if form.tipo_bem.errors else ""), id="tipo_bem_selector") }}
+                    {% if form.tipo_bem.errors %}<div class="invalid-feedback">{% for error in form.tipo_bem.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.situacao_bem.label(class="form-control-label") }}
+                    {{ form.situacao_bem(class="form-control " + ("is-invalid" if form.situacao_bem.errors else "")) }}
+                    {% if form.situacao_bem.errors %}<div class="invalid-feedback">{% for error in form.situacao_bem.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                 <div class="form-group col-md-4">
+                    {{ form.conta_contabil.label(class="form-control-label") }}
+                    {{ form.conta_contabil(class="form-control " + ("is-invalid" if form.conta_contabil.errors else "")) }}
+                    {% if form.conta_contabil.errors %}<div class="invalid-feedback">{% for error in form.conta_contabil.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Dados de Aquisição e Fiscais</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    {{ form.data_aquisicao.label(class="form-control-label") }}
+                    {{ form.data_aquisicao(class="form-control " + ("is-invalid" if form.data_aquisicao.errors else "")) }}
+                    {% if form.data_aquisicao.errors %}<div class="invalid-feedback">{% for error in form.data_aquisicao.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form.valor_aquisicao.label(class="form-control-label") }}
+                    {{ form.valor_aquisicao(class="form-control " + ("is-invalid" if form.valor_aquisicao.errors else ""), type="number", step="0.01") }}
+                    {% if form.valor_aquisicao.errors %}<div class="invalid-feedback">{% for error in form.valor_aquisicao.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form.nota_fiscal_numero.label(class="form-control-label") }}
+                    {{ form.nota_fiscal_numero(class="form-control " + ("is-invalid" if form.nota_fiscal_numero.errors else "")) }}
+                    {% if form.nota_fiscal_numero.errors %}<div class="invalid-feedback">{% for error in form.nota_fiscal_numero.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form.nota_fiscal_data.label(class="form-control-label") }}
+                    {{ form.nota_fiscal_data(class="form-control " + ("is-invalid" if form.nota_fiscal_data.errors else "")) }}
+                    {% if form.nota_fiscal_data.errors %}<div class="invalid-feedback">{% for error in form.nota_fiscal_data.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.nota_fiscal_fornecedor_cnpj.label(class="form-control-label") }}
+                    {{ form.nota_fiscal_fornecedor_cnpj(class="form-control " + ("is-invalid" if form.nota_fiscal_fornecedor_cnpj.errors else ""), placeholder="XX.XXX.XXX/XXXX-XX") }}
+                    {% if form.nota_fiscal_fornecedor_cnpj.errors %}<div class="invalid-feedback">{% for error in form.nota_fiscal_fornecedor_cnpj.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.taxa_depreciacao_anual.label(class="form-control-label") }}
+                    {{ form.taxa_depreciacao_anual(class="form-control " + ("is-invalid" if form.taxa_depreciacao_anual.errors else ""), type="number", step="0.01") }}
+                    {% if form.taxa_depreciacao_anual.errors %}<div class="invalid-feedback">{% for error in form.taxa_depreciacao_anual.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Localização</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.localizacao_unidade.label(class="form-control-label") }}
+                    {{ form.localizacao_unidade(class="form-control " + ("is-invalid" if form.localizacao_unidade.errors else "")) }}
+                    {% if form.localizacao_unidade.errors %}<div class="invalid-feedback">{% for error in form.localizacao_unidade.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.localizacao_secao.label(class="form-control-label") }}
+                    {{ form.localizacao_secao(class="form-control " + ("is-invalid" if form.localizacao_secao.errors else "")) }}
+                    {% if form.localizacao_secao.errors %}<div class="invalid-feedback">{% for error in form.localizacao_secao.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.localizacao_setor.label(class="form-control-label") }}
+                    {{ form.localizacao_setor(class="form-control " + ("is-invalid" if form.localizacao_setor.errors else "")) }}
+                    {% if form.localizacao_setor.errors %}<div class="invalid-feedback">{% for error in form.localizacao_setor.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.localizacao_responsavel.label(class="form-control-label") }}
+                    {{ form.localizacao_responsavel(class="form-control " + ("is-invalid" if form.localizacao_responsavel.errors else "")) }}
+                    {% if form.localizacao_responsavel.errors %}<div class="invalid-feedback">{% for error in form.localizacao_responsavel.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campos Específicos por Tipo de Bem -->
+    <div id="campos_especificos_movel" class="tipo_bem_campos card mb-3" style="display:none;">
+        <div class="card-header">Detalhes Específicos: Móvel</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">{{ form.movel_marca.label }} {{ form.movel_marca(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.movel_modelo.label }} {{ form.movel_modelo(class="form-control") }}</div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">{{ form.movel_cor.label }} {{ form.movel_cor(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.movel_dimensoes.label }} {{ form.movel_dimensoes(class="form-control") }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="campos_especificos_veiculo" class="tipo_bem_campos card mb-3" style="display:none;">
+        <div class="card-header">Detalhes Específicos: Veículo</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-3">{{ form.veiculo_placa.label }} {{ form.veiculo_placa(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.veiculo_modelo.label }} {{ form.veiculo_modelo(class="form-control") }}</div>
+                <div class="form-group col-md-3">{{ form.veiculo_ano_fabricacao.label }} {{ form.veiculo_ano_fabricacao(class="form-control", type="number") }}</div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">{{ form.veiculo_chassi.label }} {{ form.veiculo_chassi(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.veiculo_renavam.label }} {{ form.veiculo_renavam(class="form-control") }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="campos_especificos_armamento" class="tipo_bem_campos card mb-3" style="display:none;">
+        <div class="card-header">Detalhes Específicos: Armamento</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">{{ form.armamento_tipo.label }} {{ form.armamento_tipo(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.armamento_calibre.label }} {{ form.armamento_calibre(class="form-control") }}</div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">{{ form.armamento_numero_serie.label }} {{ form.armamento_numero_serie(class="form-control") }}</div>
+                <div class="form-group col-md-6">{{ form.armamento_fabricante.label }} {{ form.armamento_fabricante(class="form-control") }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicionar mais blocos para outros tipos de bem aqui -->
+
+    <div class="card mb-3">
+        <div class="card-header">Observações</div>
+        <div class="card-body">
+            <div class="form-group">
+                {{ form.observacoes.label(class="form-control-label") }}
+                {{ form.observacoes(class="form-control " + ("is-invalid" if form.observacoes.errors else ""), rows="3") }}
+                {% if form.observacoes.errors %}<div class="invalid-feedback">{% for error in form.observacoes.errors %}<span>{{ error }}</span>{% endfor %}</div>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-4">
+        {{ form.submit(class="btn btn-primary btn-lg") }}
+        <a href="{{ url_for('bens.listar_os_bens') }}" class="btn btn-secondary btn-lg">Cancelar</a>
+    </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tipoBemSelector = document.getElementById('tipo_bem_selector');
+    const camposEspecificosDivs = document.querySelectorAll('.tipo_bem_campos');
+
+    function toggleCamposEspecificos() {
+        const selectedTipo = tipoBemSelector.value;
+        camposEspecificosDivs.forEach(function(div) {
+            div.style.display = 'none';
+        });
+
+        if (selectedTipo) {
+            const divToShow = document.getElementById('campos_especificos_' + selectedTipo);
+            if (divToShow) {
+                divToShow.style.display = 'block';
+            }
+        }
+    }
+
+    if (tipoBemSelector) {
+        tipoBemSelector.addEventListener('change', toggleCamposEspecificos);
+        // Chama a função uma vez no carregamento para o caso de edição de formulário já preenchido
+        toggleCamposEspecificos();
+    }
+});
+</script>

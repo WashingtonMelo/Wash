@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">{{ title }} - {{ user.nome_completo }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Matrícula:</strong> {{ user.matricula }}</p>
+                <p><strong>Perfil:</strong> {{ user.perfil | capitalize }}</p>
+                <p><strong>Cargo/Função:</strong> {{ user.cargo_funcao }}</p>
+                <p><strong>Telefone:</strong> {{ user.telefone }}</p>
+                <p><strong>UID:</strong> {{ user.uid }}</p>
+                <p><strong>Ativo:</strong> {{ "Sim" if user.ativo else "Não" }}</p>
+                <p><strong>Data de Criação:</strong> {{ user.data_criacao.strftime('%d/%m/%Y %H:%M:%S') if user.data_criacao else 'N/A' }} (UTC)</p>
+                <p><strong>Último Login:</strong> {{ user.ultimo_login.strftime('%d/%m/%Y %H:%M:%S') if user.ultimo_login else 'N/A' }} (UTC)</p>
+
+                <!-- Adicionar mais informações ou ações de perfil aqui -->
+                <!-- Ex: <a href="{{ url_for('auth.edit_profile') }}" class="btn btn-primary">Editar Perfil</a> -->
+            </div>
+            <div class="card-footer">
+                 <a href="{{ url_for('hello') }}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
